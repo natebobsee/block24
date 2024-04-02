@@ -1,61 +1,47 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {puppyList} from './data.js'
 
-const dogs =[
-{
-id: 1088,
-name: "Daphne",
-breed: "German Shepherd",
-status: "field",
-imageUrl: "http://r.ddmcdn.com/w_960/s_f/o_1/cx_25/cy_0/cw_960/ch_1440/APL/uploads/2020/01/Daphne-PBXVI.jpg"
-
-},
-{
-id: 1090,
-name: "Duncan",
-breed: "Collie",
-status: "field",
-imageUrl: "http://r.ddmcdn.com/w_1012/s_f/o_1/cx_0/cy_49/cw_1012/ch_1518/APL/uploads/2020/01/Duncan-PBXVI-v2.jpg"
-
-},
-{
-id: 1091,
-name: "Filbert",
-breed: "Shetland Sheepdog / Border Collie",
-status: "field",
-imageUrl: "http://r.ddmcdn.com/w_942/s_f/o_1/cx_35/cy_0/cw_942/ch_1413/APL/uploads/2019/12/Filbert-PBXVI.jpg"
-},
-];
+let id;
+let featPupID;
+let featuredPup=[];
 function App() {
-  const [count, setCount] = useState(0)
-function handleclick(){
-alert(count);
-setCount(prev => prev + 1);
+  const [puppies, setPuppies] = useState(puppyList);
+  const [featPupId, setFeatPupId] = useState(null);
 
+  function handleClick() {
+     setFeatPupId(id)
+    console.log(id)
+    featPupID=id;
+    featuredPup = puppies.find((pup)=> pup.id === featPupId)
+    // some logic here
+  }
 
-}
   return (
-    <>
-    <div>{count}</div>
- <button onClick={handleclick}>click Me</button>
-    
-    
-      {
-      dogs.map(dog => {
-        return(
-           <div className='dog' key = {dog.name}>
-            <div>{dog.name}</div>
-             <div>
-              <img src ={dog.imageUrl} ></img>
-              </div> 
-              </div>
-              )
-        })
-      }
-    </>
-  )
+    <div className="App">
+      {puppies.map((puppy) => {
+        return (
+          <p onClick={handleClick} key={puppy.id}>
+            {puppy.name}
+            {id=puppy.id}
+            
+            {/* {console.log("puppy id: ", puppy.id)} */}
+          </p>
+          
+        );
+
+      })}
+          {featPupId && (
+        <div>
+          {/* <h2>{featuredPup.name}</h2> */}
+          <ul>
+            <li>Age: {featuredPup.age}</li>
+            <li>Email: {featuredPup.email}</li>
+          </ul>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default App
